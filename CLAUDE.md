@@ -29,38 +29,14 @@ Output JAR will be in `build/libs/`.
 
 ```
 src/main/java/com/example/mansbestfriend/
-├── MansBestFriend.java           # Main mod class
-├── attachment/                   # Entity/player data attachments
-│   ├── ModAttachments.java       # Attachment registration
-│   ├── ForeverPetData.java       # Pet data (forever status, home, owner)
-│   └── PlayerPetRosterData.java  # Player's pet roster
-├── component/                    # Item data components
-│   ├── ModDataComponents.java    # Component registration
-│   ├── CollarData.java           # Collar home location
-│   └── OcarinaData.java          # Bound pet UUID
-├── item/                         # Custom items
-│   ├── ModItems.java             # Item + creative tab registration
-│   ├── CollarItem.java           # Friendship Collar
-│   ├── OcarinaItem.java          # Ocarina
-│   └── RosterItem.java           # Pet Roster book
-├── entity/ai/goal/
-│   └── WanderAroundHomeGoal.java # AI for pets to wander near home
-├── event/
-│   ├── ModGameEvents.java        # Damage prevention, AI injection
-│   └── ModClientEvents.java      # Keybinds (P for roster)
-├── network/
-│   ├── ModPayloads.java          # Packet registration + handlers
-│   └── payload/                  # Network packets
-│       ├── SummonPetPayload.java
-│       ├── SendPetHomePayload.java
-│       ├── SetDefaultHomePayload.java
-│       ├── SyncPetRosterPayload.java
-│       └── OpenRosterPayload.java
-├── screen/
-│   └── RosterScreen.java         # Pet roster GUI
-└── util/
-    ├── HomeLocation.java         # Dimension + BlockPos record
-    └── TeleportHelper.java       # Cross-dimension teleportation
+├── attachment/        # Entity/player data attachments (ForeverPetData, PlayerPetRosterData)
+├── component/         # Item data components (CollarData, OcarinaData)
+├── item/              # Custom items (CollarItem, OcarinaItem, RosterItem)
+├── entity/ai/goal/    # Custom AI goals for Forever Pets
+├── event/             # Event handlers (damage prevention, AI injection, keybinds)
+├── network/           # Network packets and payload registration
+├── screen/            # Client-side GUI screens
+└── util/              # Helper utilities (teleportation, dimension handling)
 ```
 
 ## Key Features
@@ -97,13 +73,6 @@ src/main/java/com/example/mansbestfriend/
 
 ### Cross-Dimension Teleport
 Uses `Entity.changeDimension(DimensionTransition)` with attachment data preservation.
-
-## Textures Needed
-
-The following textures need to be added to `src/main/resources/assets/mans_best_friend/textures/item/`:
-- `collar.png` (16x16)
-- `roster.png` (16x16)
-- `ocarina.png` (16x16)
 
 ## Testing Checklist
 
