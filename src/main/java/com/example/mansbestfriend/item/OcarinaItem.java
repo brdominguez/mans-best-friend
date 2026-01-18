@@ -5,7 +5,6 @@ import com.example.mansbestfriend.attachment.ForeverPetData;
 import com.example.mansbestfriend.attachment.ModAttachments;
 import com.example.mansbestfriend.attachment.PlayerPetRosterData;
 import com.example.mansbestfriend.component.ModDataComponents;
-import com.example.mansbestfriend.component.OcarinaColor;
 import com.example.mansbestfriend.component.OcarinaData;
 import com.example.mansbestfriend.util.HomeLocation;
 import com.example.mansbestfriend.util.TeleportHelper;
@@ -37,21 +36,15 @@ import java.util.UUID;
  * - Sneak+Right-click in air to send the bound pet home
  */
 public class OcarinaItem extends Item {
-    private final OcarinaColor color;
 
-    public OcarinaItem(Properties properties, OcarinaColor color) {
+    public OcarinaItem(Properties properties) {
         super(properties);
-        this.color = color;
-    }
-
-    public OcarinaColor getColor() {
-        return color;
     }
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
-        OcarinaData data = stack.getOrDefault(ModDataComponents.OCARINA_DATA.get(), OcarinaData.unbound(color));
+        OcarinaData data = stack.getOrDefault(ModDataComponents.OCARINA_DATA.get(), OcarinaData.unbound());
 
         if (!data.isBound()) {
             if (!level.isClientSide) {
@@ -112,7 +105,7 @@ public class OcarinaItem extends Item {
 
             if (!player.level().isClientSide) {
                 // Bind the ocarina to this pet
-                OcarinaData newData = new OcarinaData(pet.getUUID(), color);
+                OcarinaData newData = new OcarinaData(pet.getUUID());
                 stack.set(ModDataComponents.OCARINA_DATA.get(), newData);
 
                 String petName = pet.hasCustomName() ? pet.getCustomName().getString() : pet.getType().getDescription().getString();

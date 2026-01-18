@@ -14,28 +14,26 @@ import java.util.UUID;
 
 /**
  * Data component for Ocarina items.
- * Stores the UUID of the bound pet and the ocarina's color.
+ * Stores the UUID of the bound pet.
  */
-public record OcarinaData(@Nullable UUID boundPetUUID, OcarinaColor color) {
+public record OcarinaData(@Nullable UUID boundPetUUID) {
 
     public static final Codec<OcarinaData> CODEC = RecordCodecBuilder.create(instance ->
             instance.group(
-                    UUIDUtil.CODEC.optionalFieldOf("bound_pet_uuid").forGetter(data -> Optional.ofNullable(data.boundPetUUID)),
-                    OcarinaColor.CODEC.fieldOf("color").forGetter(OcarinaData::color)
-            ).apply(instance, (uuidOpt, color) -> new OcarinaData(uuidOpt.orElse(null), color))
+                    UUIDUtil.CODEC.optionalFieldOf("bound_pet_uuid").forGetter(data -> Optional.ofNullable(data.boundPetUUID))
+            ).apply(instance, uuidOpt -> new OcarinaData(uuidOpt.orElse(null)))
     );
 
     public static final StreamCodec<ByteBuf, OcarinaData> STREAM_CODEC = StreamCodec.composite(
             ByteBufCodecs.optional(UUIDUtil.STREAM_CODEC), data -> Optional.ofNullable(data.boundPetUUID),
-            OcarinaColor.STREAM_CODEC, OcarinaData::color,
-            (uuidOpt, color) -> new OcarinaData(uuidOpt.orElse(null), color)
+            uuidOpt -> new OcarinaData(uuidOpt.orElse(null))
     );
 
     /**
-     * Creates an unbound ocarina with the given color.
+     * Creates an unbound ocarina.
      */
-    public static OcarinaData unbound(OcarinaColor color) {
-        return new OcarinaData(null, color);
+    public static OcarinaData unbound() {
+        return new OcarinaData(null);
     }
 
     /**
@@ -49,14 +47,7 @@ public record OcarinaData(@Nullable UUID boundPetUUID, OcarinaColor color) {
      * Creates a new OcarinaData bound to the given pet.
      */
     public OcarinaData withBoundPet(UUID petUUID) {
-        return new OcarinaData(petUUID, color);
-    }
-
-    /**
-     * Creates a new unbound OcarinaData.
-     */
-    public OcarinaData unbound() {
-        return new OcarinaData(null, color);
+        return new OcarinaData(petUUID);
     }
 
     @Override
@@ -64,11 +55,11 @@ public record OcarinaData(@Nullable UUID boundPetUUID, OcarinaColor color) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         OcarinaData that = (OcarinaData) o;
-        return color == that.color && Objects.equals(boundPetUUID, that.boundPetUUID);
+        return Objects.equals(boundPetUUID, that.boundPetUUID);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(boundPetUUID, color);
+        return Objects.hash(boundPetUUID);
     }
 }

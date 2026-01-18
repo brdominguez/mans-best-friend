@@ -37,12 +37,11 @@ src/main/java/com/example/mansbestfriend/
 ├── component/                    # Item data components
 │   ├── ModDataComponents.java    # Component registration
 │   ├── CollarData.java           # Collar home location
-│   ├── OcarinaData.java          # Bound pet UUID + color
-│   └── OcarinaColor.java         # 17 terracotta color enum
+│   └── OcarinaData.java          # Bound pet UUID
 ├── item/                         # Custom items
 │   ├── ModItems.java             # Item + creative tab registration
 │   ├── CollarItem.java           # Friendship Collar
-│   ├── OcarinaItem.java          # Ocarina (17 colors)
+│   ├── OcarinaItem.java          # Ocarina
 │   └── RosterItem.java           # Pet Roster book
 ├── entity/ai/goal/
 │   └── WanderAroundHomeGoal.java # AI for pets to wander near home
@@ -71,7 +70,7 @@ src/main/java/com/example/mansbestfriend/
 - Sneak+Right-click block to set home location on collar before applying
 - Forever Pets wander around their home instead of sitting
 
-### Ocarina (17 colors)
+### Ocarina
 - Sneak+Right-click Forever Pet to bind
 - Right-click to summon bound pet (works across dimensions)
 - Sneak+Right-click air to send bound pet home
@@ -90,7 +89,7 @@ src/main/java/com/example/mansbestfriend/
 
 ### Data Components
 - `CollarData`: Stores home location on collar items
-- `OcarinaData`: Stores bound pet UUID and color
+- `OcarinaData`: Stores bound pet UUID
 
 ### Event Buses
 - MOD bus: Registration events, keybinds
@@ -104,7 +103,7 @@ Uses `Entity.changeDimension(DimensionTransition)` with attachment data preserva
 The following textures need to be added to `src/main/resources/assets/mans_best_friend/textures/item/`:
 - `collar.png` (16x16)
 - `roster.png` (16x16)
-- `ocarina_natural.png` through `ocarina_black.png` (17 colors, 16x16 each)
+- `ocarina.png` (16x16)
 
 ## Testing Checklist
 

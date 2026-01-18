@@ -7,11 +7,11 @@
     "TT"
   ],
   "key": {
-    "T": {"item": "minecraft:lime_terracotta"},
+    "T": {"item": "minecraft:terracotta"},
     "N": {"item": "minecraft:note_block"}
   },
   "result": {
-    "id": "mans_best_friend:ocarina_lime",
+    "id": "mans_best_friend:ocarina",
     "count": 1
   }
 }
