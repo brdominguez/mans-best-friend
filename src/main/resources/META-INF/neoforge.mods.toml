@@ -1,0 +1,33 @@
+modLoader = "javafml"
+loaderVersion = "${loader_version_range}"
+license = "${mod_license}"
+issueTrackerURL = ""
+
+[[mods]]
+modId = "${mod_id}"
+version = "${mod_version}"
+displayName = "${mod_name}"
+authors = "${mod_authors}"
+description = '''
+Never worry about losing a pet again! Once a pet is equipped with a Friendship Collar, it becomes invulnerable and fully protected.
+
+Use the Ocarina to instantly summon your pet to your side, across dimensions, or play it again to send them back home safely.
+
+Pets will wander around their home area instead of sitting in one spot, giving your base a more lively and natural feel!
+
+Have a big pack of animals? The Pet Roster helps you keep track of every companion you've bonded with.
+'''
+
+[[dependencies.${mod_id}]]
+modId = "neoforge"
+type = "required"
+versionRange = "${neo_version_range}"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.${mod_id}]]
+modId = "minecraft"
+type = "required"
+versionRange = "${minecraft_version_range}"
+ordering = "NONE"
+side = "BOTH"

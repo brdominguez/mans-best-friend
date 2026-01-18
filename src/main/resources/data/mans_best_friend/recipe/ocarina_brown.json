@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "TT",
+    "TN",
+    "TT"
+  ],
+  "key": {
+    "T": {"item": "minecraft:brown_terracotta"},
+    "N": {"item": "minecraft:note_block"}
+  },
+  "result": {
+    "id": "mans_best_friend:ocarina_brown",
+    "count": 1
+  }
+}
