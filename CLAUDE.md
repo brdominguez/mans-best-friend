@@ -6,7 +6,7 @@ A Minecraft mod that introduces the Friendship Collar, Ocarina, and Pet Roster s
 
 - **Mod ID**: `mans_best_friend`
 - **Package**: `com.example.mansbestfriend`
-- **Minecraft**: 1.21.1
+- **Minecraft**: 1.21.11
 - **NeoForge**: 21.1.x
 - **Java**: 21
 

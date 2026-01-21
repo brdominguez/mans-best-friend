@@ -1,0 +1,13 @@
+{
+  "itemGroup.mansbestfriend": "Example Mod Tab",
+  "block.mansbestfriend.example_block": "Example Block",
+  "item.mansbestfriend.example_item": "Example Item",
+
+  "mansbestfriend.configuration.title": "Mans Best Friend Configs",
+  "mansbestfriend.configuration.section.mansbestfriend.common.toml": "Mans Best Friend Configs",
+  "mansbestfriend.configuration.section.mansbestfriend.common.toml.title": "Mans Best Friend Configs",
+  "mansbestfriend.configuration.items": "Item List",
+  "mansbestfriend.configuration.logDirtBlock": "Log Dirt Block",
+  "mansbestfriend.configuration.magicNumberIntroduction": "Magic Number Text",
+  "mansbestfriend.configuration.magicNumber": "Magic Number"
+}
