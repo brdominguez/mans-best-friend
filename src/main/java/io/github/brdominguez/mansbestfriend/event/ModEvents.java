@@ -4,8 +4,6 @@ import io.github.brdominguez.mansbestfriend.MansBestFriend;
 import io.github.brdominguez.mansbestfriend.attachment.ForeverPetData;
 import io.github.brdominguez.mansbestfriend.attachment.ModAttachments;
 import io.github.brdominguez.mansbestfriend.attachment.PlayerPetRosterData;
-import io.github.brdominguez.mansbestfriend.component.CollarData;
-import io.github.brdominguez.mansbestfriend.component.ModDataComponents;
 import io.github.brdominguez.mansbestfriend.entity.ai.goal.WanderAroundHomeGoal;
 import io.github.brdominguez.mansbestfriend.item.ModItems;
 import net.minecraft.core.GlobalPos;
@@ -16,6 +14,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.entity.ai.goal.FollowOwnerGoal;
 import net.minecraft.world.entity.ai.goal.SitWhenOrderedToGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -89,10 +88,8 @@ public class ModEvents {
 
         // Apply the collar (server-side only)
         if (!player.level().isClientSide()) {
-            // Get home position from collar or use current position
-            CollarData collarData = stack.getOrDefault(ModDataComponents.COLLAR_DATA.get(), CollarData.EMPTY);
-            GlobalPos homePos = collarData.homePos()
-                    .orElse(GlobalPos.of(tamable.level().dimension(), tamable.blockPosition()));
+            // Use pet's current position as initial home (can be changed via Pet Roster)
+            GlobalPos homePos = GlobalPos.of(tamable.level().dimension(), tamable.blockPosition());
 
             // Create Forever Pet data
             ForeverPetData petData = new ForeverPetData(
@@ -186,6 +183,11 @@ public class ModEvents {
             // Remove sitting goal behavior (we want them to wander, not sit)
             pathfinderMob.goalSelector.getAvailableGoals().removeIf(
                     goal -> goal.getGoal() instanceof SitWhenOrderedToGoal
+            );
+
+            // Remove follow owner goal (we want them to stay at home, not follow/teleport to owner)
+            pathfinderMob.goalSelector.getAvailableGoals().removeIf(
+                    goal -> goal.getGoal() instanceof FollowOwnerGoal
             );
 
             // Add our custom wandering goal with high priority

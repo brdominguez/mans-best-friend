@@ -94,12 +94,18 @@ public class RosterScreen extends Screen {
             this.addRenderableWidget(Button.builder(
                     Component.translatable("gui.mansbestfriend.roster.summon"),
                     button -> summonPet(pet)
-            ).bounds(centerX + listWidth / 2 - BUTTON_WIDTH * 2 - 5, entryY, BUTTON_WIDTH, BUTTON_HEIGHT).build());
+            ).bounds(centerX + listWidth / 2 - BUTTON_WIDTH * 3 - 10, entryY, BUTTON_WIDTH, BUTTON_HEIGHT).build());
 
             // Send Home button
             this.addRenderableWidget(Button.builder(
                     Component.translatable("gui.mansbestfriend.roster.send_home"),
                     button -> sendPetHome(pet)
+            ).bounds(centerX + listWidth / 2 - BUTTON_WIDTH * 2 - 5, entryY, BUTTON_WIDTH, BUTTON_HEIGHT).build());
+
+            // Set Home button
+            this.addRenderableWidget(Button.builder(
+                    Component.translatable("gui.mansbestfriend.roster.set_home"),
+                    button -> setPetHome(pet)
             ).bounds(centerX + listWidth / 2 - BUTTON_WIDTH, entryY, BUTTON_WIDTH, BUTTON_HEIGHT).build());
         }
     }
@@ -171,6 +177,10 @@ public class RosterScreen extends Screen {
 
     private void sendPetHome(SyncRosterDataPayload.PetInfo pet) {
         ClientPacketDistributor.sendToServer(new PetActionPayload(pet.uuid(), PetActionPayload.Action.SEND_HOME));
+    }
+
+    private void setPetHome(SyncRosterDataPayload.PetInfo pet) {
+        ClientPacketDistributor.sendToServer(new PetActionPayload(pet.uuid(), PetActionPayload.Action.SET_HOME));
     }
 
     @Override

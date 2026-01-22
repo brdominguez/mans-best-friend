@@ -32,7 +32,8 @@ public record PetActionPayload(UUID petUuid, Action action) implements CustomPac
 
     public enum Action {
         SUMMON(0),
-        SEND_HOME(1);
+        SEND_HOME(1),
+        SET_HOME(2);
 
         private final int id;
 
@@ -45,7 +46,12 @@ public record PetActionPayload(UUID petUuid, Action action) implements CustomPac
         }
 
         public static Action fromId(int id) {
-            return id == 0 ? SUMMON : SEND_HOME;
+            return switch (id) {
+                case 0 -> SUMMON;
+                case 1 -> SEND_HOME;
+                case 2 -> SET_HOME;
+                default -> SUMMON;
+            };
         }
     }
 }

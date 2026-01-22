@@ -173,6 +173,19 @@ public class ModNetworking {
                     );
                 }
             }
+            case SET_HOME -> {
+                GlobalPos newHome = GlobalPos.of(player.level().dimension(), player.blockPosition());
+                ForeverPetData updatedData = petData.withHomePos(newHome);
+                tamable.setData(ModAttachments.FOREVER_PET_DATA.get(), updatedData);
+                player.displayClientMessage(
+                        Component.translatable("gui.mansbestfriend.roster.home_set",
+                                tamable.getDisplayName(),
+                                player.blockPosition().getX(),
+                                player.blockPosition().getY(),
+                                player.blockPosition().getZ()),
+                        true
+                );
+            }
         }
     }
 }
