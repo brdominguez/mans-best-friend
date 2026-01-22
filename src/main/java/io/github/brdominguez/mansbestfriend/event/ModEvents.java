@@ -15,7 +15,6 @@ import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.ai.goal.FollowOwnerGoal;
-import net.minecraft.world.entity.ai.goal.SitWhenOrderedToGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.EventPriority;
@@ -180,11 +179,6 @@ public class ModEvents {
 
         // Add wandering AI goal
         if (tamable instanceof PathfinderMob pathfinderMob) {
-            // Remove sitting goal behavior (we want them to wander, not sit)
-            pathfinderMob.goalSelector.getAvailableGoals().removeIf(
-                    goal -> goal.getGoal() instanceof SitWhenOrderedToGoal
-            );
-
             // Remove follow owner goal (we want them to stay at home, not follow/teleport to owner)
             pathfinderMob.goalSelector.getAvailableGoals().removeIf(
                     goal -> goal.getGoal() instanceof FollowOwnerGoal
@@ -198,7 +192,7 @@ public class ModEvents {
                     32     // max distance from home
             ));
 
-            // Make sure they're not sitting
+            // Make sure they're not sitting by default (but keep SitWhenOrderedToGoal so player can still command them)
             tamable.setOrderedToSit(false);
         }
 
