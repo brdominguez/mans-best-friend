@@ -38,7 +38,7 @@ public class RosterItem extends Item {
 
         // Sneak + right-click block to set default home
         if (player.isShiftKeyDown()) {
-            BlockPos pos = context.getClickedPos();
+            BlockPos pos = context.getClickedPos().relative(context.getClickedFace());
             Level level = context.getLevel();
 
             if (!level.isClientSide()) {

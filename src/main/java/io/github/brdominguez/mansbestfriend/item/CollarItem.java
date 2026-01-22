@@ -36,7 +36,7 @@ public class CollarItem extends Item {
 
         // Sneak + right-click block to set home location
         if (player.isShiftKeyDown()) {
-            BlockPos pos = context.getClickedPos();
+            BlockPos pos = context.getClickedPos().relative(context.getClickedFace());
             Level level = context.getLevel();
             ItemStack stack = context.getItemInHand();
 
