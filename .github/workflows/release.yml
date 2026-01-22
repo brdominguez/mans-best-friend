@@ -28,6 +28,11 @@ jobs:
       - name: Build
         run: ./gradlew build
 
+      - name: Update latest tag
+        run: |
+          git tag -f latest
+          git push -f origin latest
+
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
