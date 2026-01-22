@@ -15,10 +15,4 @@ public class ModDataComponents {
                     .persistent(CollarData.CODEC)
                     .networkSynchronized(CollarData.STREAM_CODEC)
                     .build());
-
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<OcarinaData>> OCARINA_DATA =
-            DATA_COMPONENT_TYPES.register("ocarina_data", () -> DataComponentType.<OcarinaData>builder()
-                    .persistent(OcarinaData.CODEC)
-                    .networkSynchronized(OcarinaData.STREAM_CODEC)
-                    .build());
 }

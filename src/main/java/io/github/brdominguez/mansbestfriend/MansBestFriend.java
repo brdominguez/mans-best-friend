@@ -24,7 +24,6 @@ import net.neoforged.neoforge.registries.DeferredRegister;
  *
  * Features:
  * - Friendship Collar: Makes tamed pets invulnerable "Forever Pets"
- * - Ocarina: Summon and send home your Forever Pets
  * - Pet Roster: GUI for managing all your Forever Pets
  */
 @Mod(MansBestFriend.MODID)
@@ -43,7 +42,6 @@ public class MansBestFriend {
                     .icon(() -> ModItems.COLLAR.get().getDefaultInstance())
                     .displayItems((parameters, output) -> {
                         output.accept(ModItems.COLLAR.get());
-                        output.accept(ModItems.OCARINA.get());
                         output.accept(ModItems.ROSTER.get());
                     }).build());
 

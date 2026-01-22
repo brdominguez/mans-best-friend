@@ -7,7 +7,6 @@ import io.github.brdominguez.mansbestfriend.attachment.PlayerPetRosterData;
 import io.github.brdominguez.mansbestfriend.component.CollarData;
 import io.github.brdominguez.mansbestfriend.component.ModDataComponents;
 import io.github.brdominguez.mansbestfriend.entity.ai.goal.WanderAroundHomeGoal;
-import io.github.brdominguez.mansbestfriend.component.OcarinaData;
 import io.github.brdominguez.mansbestfriend.item.ModItems;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.network.chat.Component;
@@ -128,76 +127,6 @@ public class ModEvents {
             player.level().playSound(null, tamable.blockPosition(), SoundEvents.PLAYER_LEVELUP, SoundSource.PLAYERS, 0.7f, 1.0f);
 
             MansBestFriend.LOGGER.info("Made {} a Forever Pet for player {}",
-                    tamable.getDisplayName().getString(), player.getName().getString());
-        }
-
-        // Cancel the event to prevent sit/stand behavior
-        event.setCanceled(true);
-        event.setCancellationResult(InteractionResult.SUCCESS);
-    }
-
-    /**
-     * Handles ocarina binding via entity interaction event.
-     * This runs at high priority to intercept before the wolf's sit/stand behavior.
-     */
-    @SubscribeEvent(priority = EventPriority.HIGHEST)
-    public static void onOcarinaEntityInteract(PlayerInteractEvent.EntityInteract event) {
-        Player player = event.getEntity();
-        ItemStack stack = player.getItemInHand(event.getHand());
-
-        // Only handle ocarina items
-        if (!stack.is(ModItems.OCARINA.get())) {
-            return;
-        }
-
-        // Only handle tamable animals
-        if (!(event.getTarget() instanceof TamableAnimal tamable)) {
-            return;
-        }
-
-        // Must be a Forever Pet
-        ForeverPetData petData = tamable.getData(ModAttachments.FOREVER_PET_DATA.get());
-        if (!petData.isForeverPet()) {
-            if (!player.level().isClientSide()) {
-                player.displayClientMessage(
-                        Component.translatable("item.mansbestfriend.ocarina.not_forever_pet"),
-                        true
-                );
-            }
-            event.setCanceled(true);
-            event.setCancellationResult(InteractionResult.FAIL);
-            return;
-        }
-
-        // Must be owned by the player
-        if (!tamable.isOwnedBy(player)) {
-            if (!player.level().isClientSide()) {
-                player.displayClientMessage(
-                        Component.translatable("item.mansbestfriend.ocarina.not_your_pet"),
-                        true
-                );
-            }
-            event.setCanceled(true);
-            event.setCancellationResult(InteractionResult.FAIL);
-            return;
-        }
-
-        // Bind the pet to the ocarina
-        if (!player.level().isClientSide()) {
-            String petName = tamable.getDisplayName().getString();
-            OcarinaData newData = new OcarinaData(java.util.Optional.of(tamable.getUUID()), java.util.Optional.of(petName));
-            stack.set(ModDataComponents.OCARINA_DATA.get(), newData);
-
-            player.displayClientMessage(
-                    Component.translatable("item.mansbestfriend.ocarina.bound",
-                            tamable.getDisplayName()),
-                    true
-            );
-
-            // Play a confirmation sound
-            player.level().playSound(null, tamable.blockPosition(), SoundEvents.NOTE_BLOCK_FLUTE.value(), SoundSource.PLAYERS, 1.0f, 1.0f);
-
-            MansBestFriend.LOGGER.info("Bound ocarina to {} for player {}",
                     tamable.getDisplayName().getString(), player.getName().getString());
         }
 
