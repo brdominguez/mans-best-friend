@@ -18,7 +18,7 @@
   "item.mansbestfriend.ocarina.not_forever_pet": "This pet needs a Friendship Collar first!",
   "item.mansbestfriend.ocarina.not_your_pet": "This is not your pet!",
   "item.mansbestfriend.ocarina.bound": "Ocarina bound to %s!",
-  "item.mansbestfriend.ocarina.no_pet_bound": "No pet bound! Sneak + Right-click a Forever Pet to bind.",
+  "item.mansbestfriend.ocarina.no_pet_bound": "No pet bound! Right-click a Forever Pet to bind.",
   "item.mansbestfriend.ocarina.pet_not_found": "Could not find your pet - they may be in an unloaded chunk.",
   "item.mansbestfriend.ocarina.invalid_pet": "Invalid pet - the bound entity is no longer a pet.",
   "item.mansbestfriend.ocarina.no_home": "This pet has no home set! Use a collar with a home location.",
@@ -28,7 +28,7 @@
   "item.mansbestfriend.ocarina.tooltip.bound_to": "§aBound to: %s",
   "item.mansbestfriend.ocarina.tooltip.summon_hint": "§7Right-click to summon",
   "item.mansbestfriend.ocarina.tooltip.home_hint": "§7Sneak + Right-click to send home",
-  "item.mansbestfriend.ocarina.tooltip.unbound": "§eSneak + Right-click a Forever Pet to bind",
+  "item.mansbestfriend.ocarina.tooltip.unbound": "§eRight-click a Forever Pet to bind",
 
   "item.mansbestfriend.roster.default_home_set": "Default home for new pets set to %d, %d, %d",
   "item.mansbestfriend.roster.tooltip.open_hint": "§7Right-click to open pet manager",

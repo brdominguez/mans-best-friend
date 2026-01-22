@@ -11,7 +11,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -26,7 +25,7 @@ import java.util.function.Consumer;
 
 /**
  * Ocarina item for summoning and sending home Forever Pets.
- * - Sneak+Right-click Forever Pet: Bind the pet to this ocarina
+ * - Right-click Forever Pet: Bind the pet to this ocarina (handled by ModEvents)
  * - Right-click (in air): Summon bound pet to player
  * - Sneak+Right-click (in air): Send bound pet home
  */
@@ -36,52 +35,8 @@ public class OcarinaItem extends Item {
         super(properties);
     }
 
-    @Override
-    public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity target, InteractionHand hand) {
-        if (!(target instanceof TamableAnimal tamable)) {
-            return InteractionResult.PASS;
-        }
-
-        // Must be a Forever Pet owned by the player
-        ForeverPetData petData = target.getData(ModAttachments.FOREVER_PET_DATA.get());
-        if (!petData.isForeverPet()) {
-            if (!player.level().isClientSide()) {
-                player.displayClientMessage(
-                        Component.translatable("item.mansbestfriend.ocarina.not_forever_pet"),
-                        true
-                );
-            }
-            return InteractionResult.FAIL;
-        }
-
-        if (!tamable.isOwnedBy(player)) {
-            if (!player.level().isClientSide()) {
-                player.displayClientMessage(
-                        Component.translatable("item.mansbestfriend.ocarina.not_your_pet"),
-                        true
-                );
-            }
-            return InteractionResult.FAIL;
-        }
-
-        // Sneak + interact to bind
-        if (player.isShiftKeyDown()) {
-            if (!player.level().isClientSide()) {
-                String petName = target.getDisplayName().getString();
-                OcarinaData newData = new OcarinaData(Optional.of(target.getUUID()), Optional.of(petName));
-                stack.set(ModDataComponents.OCARINA_DATA.get(), newData);
-
-                player.displayClientMessage(
-                        Component.translatable("item.mansbestfriend.ocarina.bound",
-                                target.getDisplayName()),
-                        true
-                );
-            }
-            return InteractionResult.SUCCESS;
-        }
-
-        return InteractionResult.PASS;
-    }
+    // Note: Entity interaction (binding) is handled by ModEvents.onOcarinaEntityInteract
+    // to properly intercept before the wolf's sit/stand behavior
 
     @Override
     public InteractionResult use(Level level, Player player, InteractionHand hand) {
