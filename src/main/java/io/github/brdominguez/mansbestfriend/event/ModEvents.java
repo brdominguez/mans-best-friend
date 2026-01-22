@@ -4,7 +4,6 @@ import io.github.brdominguez.mansbestfriend.MansBestFriend;
 import io.github.brdominguez.mansbestfriend.attachment.ForeverPetData;
 import io.github.brdominguez.mansbestfriend.attachment.ModAttachments;
 import io.github.brdominguez.mansbestfriend.attachment.PlayerPetRosterData;
-import io.github.brdominguez.mansbestfriend.entity.ai.goal.WanderAroundHomeGoal;
 import io.github.brdominguez.mansbestfriend.item.ModItems;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.network.chat.Component;
@@ -12,9 +11,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageTypes;
-import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.TamableAnimal;
-import net.minecraft.world.entity.ai.goal.FollowOwnerGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.EventPriority;
@@ -160,7 +157,7 @@ public class ModEvents {
     }
 
     /**
-     * Injects custom AI goals into Forever Pets when they join the world.
+     * Logs when Forever Pets join the world.
      */
     @SubscribeEvent
     public static void onEntityJoinLevel(EntityJoinLevelEvent event) {
@@ -177,26 +174,7 @@ public class ModEvents {
             return;
         }
 
-        // Add wandering AI goal
-        if (tamable instanceof PathfinderMob pathfinderMob) {
-            // Remove follow owner goal (we want them to stay at home, not follow/teleport to owner)
-            pathfinderMob.goalSelector.getAvailableGoals().removeIf(
-                    goal -> goal.getGoal() instanceof FollowOwnerGoal
-            );
-
-            // Add our custom wandering goal with high priority
-            pathfinderMob.goalSelector.addGoal(2, new WanderAroundHomeGoal(
-                    pathfinderMob,
-                    1.0D,  // speed
-                    10,    // wander radius
-                    32     // max distance from home
-            ));
-
-            // Make sure they're not sitting by default (but keep SitWhenOrderedToGoal so player can still command them)
-            tamable.setOrderedToSit(false);
-        }
-
-        MansBestFriend.LOGGER.debug("Injected AI goals for Forever Pet: {}", tamable.getDisplayName().getString());
+        MansBestFriend.LOGGER.debug("Forever Pet joined world: {}", tamable.getDisplayName().getString());
     }
 
     /**
