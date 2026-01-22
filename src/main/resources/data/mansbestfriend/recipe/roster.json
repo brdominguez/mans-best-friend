@@ -1,17 +1,14 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "pattern": [
     "LLL",
     "LBL",
     "LLL"
   ],
   "key": {
-    "L": {
-      "item": "minecraft:leather"
-    },
-    "B": {
-      "item": "minecraft:bone"
-    }
+    "L": "minecraft:leather",
+    "B": "minecraft:bone"
   },
   "result": {
     "id": "mansbestfriend:roster",

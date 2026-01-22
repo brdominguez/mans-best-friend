@@ -1,20 +1,15 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "pattern": [
     " G ",
     "L L",
     " D "
   ],
   "key": {
-    "G": {
-      "item": "minecraft:gold_ingot"
-    },
-    "L": {
-      "item": "minecraft:leather"
-    },
-    "D": {
-      "item": "minecraft:diamond"
-    }
+    "G": "minecraft:gold_ingot",
+    "L": "minecraft:leather",
+    "D": "minecraft:diamond"
   },
   "result": {
     "id": "mansbestfriend:collar",
