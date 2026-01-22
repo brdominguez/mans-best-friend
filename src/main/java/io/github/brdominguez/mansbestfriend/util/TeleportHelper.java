@@ -1,17 +1,13 @@
 package io.github.brdominguez.mansbestfriend.util;
 
 import io.github.brdominguez.mansbestfriend.MansBestFriend;
-import io.github.brdominguez.mansbestfriend.attachment.ForeverPetData;
-import io.github.brdominguez.mansbestfriend.attachment.ModAttachments;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.TamableAnimal;
-import net.minecraft.world.entity.ai.goal.FollowOwnerGoal;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.portal.TeleportTransition;
 import net.minecraft.world.phys.Vec3;
@@ -52,20 +48,9 @@ public class TeleportHelper {
         double y = safePos.getY();
         double z = safePos.getZ() + 0.5;
 
-        // For tamable animals, we need to handle them specially
+        // For tamable animals, make them sit when sent home so they stay in place
         if (entity instanceof TamableAnimal tamable) {
-            // Make sure they're not sitting when teleported
-            tamable.setOrderedToSit(false);
-
-            // For Forever Pets, ensure FollowOwnerGoal is removed so they stay at home
-            ForeverPetData petData = tamable.getData(ModAttachments.FOREVER_PET_DATA.get());
-            if (petData.isForeverPet() && tamable instanceof PathfinderMob pathfinderMob) {
-                pathfinderMob.goalSelector.getAvailableGoals().removeIf(
-                        goal -> goal.getGoal() instanceof FollowOwnerGoal
-                );
-                // Stop any current navigation
-                pathfinderMob.getNavigation().stop();
-            }
+            tamable.setOrderedToSit(true);
         }
 
         try {
