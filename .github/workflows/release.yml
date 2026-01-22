@@ -38,3 +38,13 @@ jobs:
         with:
           generate_release_notes: true
           files: build/libs/*.jar
+
+      - name: Update latest release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: latest
+          name: Latest Release
+          body: |
+            This release always contains the latest build.
+            See [${{ github.ref_name }}](../../releases/tag/${{ github.ref_name }}) for detailed release notes.
+          files: build/libs/*.jar
