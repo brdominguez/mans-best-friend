@@ -106,7 +106,7 @@ public class RosterScreen extends Screen {
 
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-        this.renderBackground(guiGraphics, mouseX, mouseY, partialTick);
+        super.render(guiGraphics, mouseX, mouseY, partialTick);
 
         int centerX = this.width / 2;
         int startY = 50;
@@ -153,8 +153,6 @@ public class RosterScreen extends Screen {
                     Component.translatable("gui.mansbestfriend.roster.no_pets"),
                     centerX, this.height / 2, 0xAAAAAA);
         }
-
-        super.render(guiGraphics, mouseX, mouseY, partialTick);
     }
 
     @Override

@@ -67,7 +67,8 @@ public class OcarinaItem extends Item {
         // Sneak + interact to bind
         if (player.isShiftKeyDown()) {
             if (!player.level().isClientSide()) {
-                OcarinaData newData = new OcarinaData(Optional.of(target.getUUID()));
+                String petName = target.getDisplayName().getString();
+                OcarinaData newData = new OcarinaData(Optional.of(target.getUUID()), Optional.of(petName));
                 stack.set(ModDataComponents.OCARINA_DATA.get(), newData);
 
                 player.displayClientMessage(
@@ -185,7 +186,10 @@ public class OcarinaItem extends Item {
 
         OcarinaData data = stack.getOrDefault(ModDataComponents.OCARINA_DATA.get(), OcarinaData.EMPTY);
         if (data.hasBoundPet()) {
-            tooltipAdder.accept(Component.translatable("item.mansbestfriend.ocarina.tooltip.bound"));
+            String petName = data.boundPetName().orElse("Unknown");
+            tooltipAdder.accept(Component.translatable("item.mansbestfriend.ocarina.tooltip.bound_to", petName));
+            tooltipAdder.accept(Component.translatable("item.mansbestfriend.ocarina.tooltip.summon_hint"));
+            tooltipAdder.accept(Component.translatable("item.mansbestfriend.ocarina.tooltip.home_hint"));
         } else {
             tooltipAdder.accept(Component.translatable("item.mansbestfriend.ocarina.tooltip.unbound"));
         }

@@ -12,9 +12,13 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.network.PacketDistributor;
+
+import java.util.function.Consumer;
 
 /**
  * Roster item for managing Forever Pets.
@@ -68,5 +72,13 @@ public class RosterItem extends Item {
         }
 
         return InteractionResult.PASS;
+    }
+
+    @Override
+    public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay tooltipDisplay, Consumer<Component> tooltipAdder, TooltipFlag tooltipFlag) {
+        super.appendHoverText(stack, context, tooltipDisplay, tooltipAdder, tooltipFlag);
+        tooltipAdder.accept(Component.translatable("item.mansbestfriend.roster.tooltip.open_hint"));
+        tooltipAdder.accept(Component.translatable("item.mansbestfriend.roster.tooltip.home_hint"));
+        tooltipAdder.accept(Component.translatable("item.mansbestfriend.roster.tooltip.keybind_hint"));
     }
 }

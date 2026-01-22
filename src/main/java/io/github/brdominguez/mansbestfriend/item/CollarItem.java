@@ -141,10 +141,23 @@ public class CollarItem extends Item {
         CollarData data = stack.getOrDefault(ModDataComponents.COLLAR_DATA.get(), CollarData.EMPTY);
         if (data.hasHomePos()) {
             GlobalPos pos = data.homePos().get();
+            // Format dimension name nicely (e.g., "ResourceKey[minecraft:dimension / minecraft:overworld]" -> "Overworld")
+            String rawDimension = pos.dimension().toString();
+            int lastSlash = rawDimension.lastIndexOf('/');
+            int lastBracket = rawDimension.lastIndexOf(']');
+            String dimPart = lastSlash >= 0 && lastBracket > lastSlash
+                    ? rawDimension.substring(lastSlash + 1, lastBracket).trim()
+                    : rawDimension;
+            int colon = dimPart.lastIndexOf(':');
+            String baseName = colon >= 0 ? dimPart.substring(colon + 1) : dimPart;
+            String dimensionName = baseName.substring(0, 1).toUpperCase() + baseName.substring(1).replace("_", " ");
             tooltipAdder.accept(Component.translatable("item.mansbestfriend.collar.tooltip.home",
                     pos.pos().getX(), pos.pos().getY(), pos.pos().getZ()));
+            tooltipAdder.accept(Component.translatable("item.mansbestfriend.collar.tooltip.dimension", dimensionName));
+            tooltipAdder.accept(Component.translatable("item.mansbestfriend.collar.tooltip.apply_hint"));
         } else {
             tooltipAdder.accept(Component.translatable("item.mansbestfriend.collar.tooltip.no_home"));
+            tooltipAdder.accept(Component.translatable("item.mansbestfriend.collar.tooltip.apply_hint"));
         }
     }
 }
