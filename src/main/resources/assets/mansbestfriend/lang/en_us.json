@@ -6,6 +6,7 @@
   "item.mansbestfriend.roster": "Pet Roster",
 
   "item.mansbestfriend.collar.home_set": "Home location set to %d, %d, %d",
+  "item.mansbestfriend.collar.not_tamable": "This creature cannot be collared - only tamed pets!",
   "item.mansbestfriend.collar.not_your_pet": "This is not your pet!",
   "item.mansbestfriend.collar.already_forever": "This pet already has a collar!",
   "item.mansbestfriend.collar.applied": "%s is now a Forever Pet! They will wander near their home and cannot be harmed.",

@@ -3,6 +3,7 @@ package io.github.brdominguez.mansbestfriend;
 import io.github.brdominguez.mansbestfriend.attachment.ModAttachments;
 import io.github.brdominguez.mansbestfriend.component.ModDataComponents;
 import io.github.brdominguez.mansbestfriend.item.ModItems;
+import io.github.brdominguez.mansbestfriend.network.ModNetworking;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -58,6 +59,9 @@ public class MansBestFriend {
 
         // Register data attachments
         ModAttachments.ATTACHMENT_TYPES.register(modEventBus);
+
+        // Register network payloads
+        modEventBus.addListener((net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent event) -> ModNetworking.registerPayloads(event));
 
         LOGGER.info("Man's Best Friend mod initialized!");
     }
